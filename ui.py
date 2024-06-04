@@ -12,6 +12,7 @@ class PhotoshopTkinter:
         self.setup_panes()
         self.image_editor = ImageEditor(self.canvas)  
         self.setup_menu()
+        self.create_undo_redo_buttons()
 
     def setup_menu(self):
         menu_bar = tk.Menu(self.root)
@@ -33,7 +34,7 @@ class PhotoshopTkinter:
 
         btn_brush = Button(self.toolbar, text="Pincel", command=lambda: print("Pincel"))
         btn_brush.pack(side=tk.LEFT, padx=2, pady=2)
-
+        
         btn_grayscale = Button(self.toolbar, text="Escala de Grises", command=lambda: self.image_editor.apply_filter('GRAYSCALE'))
         btn_grayscale.pack(side=tk.LEFT, padx=2, pady=2)
 
@@ -52,6 +53,13 @@ class PhotoshopTkinter:
 
         property_panel = tk.LabelFrame(right_panel, text="Propiedades", bg='lightgray')
         property_panel.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
+    
+    def create_undo_redo_buttons(self):
+        btn_before = Button(self.toolbar, text="<=", command=self.image_editor.undo)
+        btn_before.pack(side=tk.LEFT, padx=2, pady=2)
+
+        btn_after = Button(self.toolbar, text="=>", command=self.image_editor.redo)
+        btn_after.pack(side=tk.LEFT, padx=2, pady=2)
 
 root = tk.Tk()
 app = PhotoshopTkinter(root)

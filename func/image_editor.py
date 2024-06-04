@@ -2,11 +2,14 @@ import cv2
 from tkinter import filedialog, Canvas
 from PIL import Image, ImageTk
 
+from func.imageMemento import ImageCaretaker, ImageMemento
+
 class ImageEditor:
     def __init__(self, canvas):
         self.canvas = canvas
         self.image = None 
-        self.image_tk = None  
+        self.image_tk = None 
+        self.caretaker = ImageCaretaker() 
 
     def open_image(self):
         file_path = filedialog.askopenfilename()
@@ -31,6 +34,7 @@ class ImageEditor:
 
     def apply_filter(self, filter_type):
         if self.image is not None:
+            self.add_memento(f"applied filter: {filter_type}")
             if filter_type == 'BLUR':
                 self.image = cv2.GaussianBlur(self.image, (5, 5), cv2.BORDER_DEFAULT)
             elif filter_type == 'GRAYSCALE':
@@ -43,3 +47,19 @@ class ImageEditor:
             self.image_pil = Image.fromarray(image_cv)  # Convert the image to PIL format
             self.image_tk = ImageTk.PhotoImage(image=self.image_pil)  # Convert to PhotoImage
             self.canvas.create_image(self.canvas.winfo_width() // 2, self.canvas.winfo_height() // 2, image=self.image_tk, anchor='center')
+   
+    def add_memento(self, description):
+        memento = ImageMemento(self.image, description)
+        self.caretaker.add_memento(memento)
+
+    def undo(self):
+        memento = self.caretaker.get_undo()
+        if memento:
+            self.image = memento.get_image()
+            self.update_canvas()
+
+    def redo(self):
+        memento = self.caretaker.get_redo()
+        if memento:
+            self.image = memento.get_image()
+            self.update_canvas()
