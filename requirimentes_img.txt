@@ -1,0 +1,39 @@
+[17/5 15:49] Alvaro Inturias Villarroel
+Tentativa de temas del proyecto
+leer imagen
+	img.shape
+	plt.imshow()
+segmentacion aplicando a las capas por color
+convertir a blanco y negro
+modificar brillo
+modificar contraste
+imagen negativa
+escalando imagenes
+muestro espacial
+histograma
+quantizacion
+reshape()
+segmentacoin con K-clusters
+ecualizacion de hisogramas
+transfomracion geometrica
+mascaras
+kernels
+filtros
+	guass
+	borroso
+	deteccion de bordes
+	lapalce
+	x-y sobel
+	canny
+deteccion de bordes
+deteccion de objetos
+	area
+	perimetro
+	centro
+convolucion
+fourier
+morfologia
+	dilatacion
+	erosion
+suma de imagenes
+restas de imagenes
