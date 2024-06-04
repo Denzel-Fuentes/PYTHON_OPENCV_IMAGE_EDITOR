@@ -1,4 +1,6 @@
 import tkinter as tk
+from filters.blur import BlurFilter
+from filters.grayScale import GrayscaleFilter
 from func.image_editor import ImageEditor  # Asegúrate de que ImageEditor esté correctamente importado
 from components.button import Button
 from components.entry import Entry 
@@ -35,7 +37,7 @@ class PhotoshopTkinter:
         btn_brush = Button(self.toolbar, text="Pincel", command=lambda: print("Pincel"))
         btn_brush.pack(side=tk.LEFT, padx=2, pady=2)
         
-        btn_grayscale = Button(self.toolbar, text="Escala de Grises", command=lambda: self.image_editor.apply_filter('GRAYSCALE'))
+        btn_grayscale = Button(self.toolbar, text="Escala de Grises", command=lambda: self.set_filter(GrayscaleFilter()))
         btn_grayscale.pack(side=tk.LEFT, padx=2, pady=2)
 
     def setup_panes(self):
@@ -60,6 +62,10 @@ class PhotoshopTkinter:
 
         btn_after = Button(self.toolbar, text="=>", command=self.image_editor.redo)
         btn_after.pack(side=tk.LEFT, padx=2, pady=2)
+    
+    def set_filter(self, filter_strategy):
+        self.image_editor.set_filter(filter_strategy)
+        self.image_editor.apply_filter()
 
 root = tk.Tk()
 app = PhotoshopTkinter(root)
