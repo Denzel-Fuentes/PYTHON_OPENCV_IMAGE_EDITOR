@@ -1,8 +1,6 @@
 from ttkbootstrap import Canvas
 from func.image_editor import ImageEditor
 from tkinter import filedialog
-import cv2
-
 from gui.canvas import ImageCanvas
 from gui.canvas_panel import CanvasPanel
 
@@ -15,6 +13,7 @@ class ImageEditorManager:
             cls._instance = cls.__new__(cls)
             cls._instance.editors = {}  # Inicialización aquí
             cls._instance.current_id = 0  # Inicialización aquí
+            cls._instance.current_editor = None
         return cls._instance
 
     def __new__(cls):
@@ -23,13 +22,15 @@ class ImageEditorManager:
         return cls._instance
 
     def open_image(self):
-        image_canvas = ImageCanvas(CanvasPanel.get_instance())
+        self.current_id += 1
+        image_canvas = ImageCanvas(CanvasPanel.get_instance(),id=self.current_id)
         image_canvas.pack(side='left', fill="both", expand=True)  # Usar side='top'
         file_path = filedialog.askopenfilename()
         if file_path:
             editor = ImageEditor(file_path=file_path, canvas=image_canvas.canvas)
             self.editors[self.current_id] = editor
-            self.current_id += 1
+            if self.current_id == 1:
+                self.set_current_editor(1)
             return editor
 
     def get_editor(self, editor_id):
@@ -40,3 +41,8 @@ class ImageEditorManager:
             self.editors[editor_id].canvas.destroy()
             del self.editors[editor_id]
 
+    def set_current_editor(self, editor_id):
+        self.current_editor = self.get_editor(editor_id)
+        print(f"Current editor set to ID: {editor_id}")
+
+    

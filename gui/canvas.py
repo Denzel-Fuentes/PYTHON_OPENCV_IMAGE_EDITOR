@@ -1,13 +1,15 @@
 from ttkbootstrap import Canvas, LabelFrame, GROOVE, Button, Label, Frame
 
 class ImageCanvas(LabelFrame):    
-    def __init__(self, parent):
+    def __init__(self, parent,id):
         super().__init__(parent)
+        self.id = id
         self.image_name = "Imagen"
         self.config(borderwidth=2, relief=GROOVE)
         self.setup_controls()
         self.canvas = Canvas(self, bg='grey', relief=GROOVE, borderwidth=2)
         self.canvas.pack(fill="both", expand=True)
+        self.bind_canvas_click(self.on_canvas_click)
 
     def setup_controls(self):
         control_frame = Frame(self)
@@ -27,3 +29,6 @@ class ImageCanvas(LabelFrame):
 
     def on_canvas_click(self, event):
         print(f"Clicked at x={event.x}, y={event.y}")
+        from gui.image_manager import ImageEditorManager  
+        ImageEditorManager.get_instance().set_current_editor(self.id)
+

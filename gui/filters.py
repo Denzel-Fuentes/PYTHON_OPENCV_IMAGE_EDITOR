@@ -1,11 +1,12 @@
 from ttkbootstrap import LabelFrame,Button
 
 from filters.blur import BlurFilter
+from gui.image_manager import ImageEditorManager
 
 class Filters(LabelFrame):
-    def __init__(self,parent,image_editor):
+    def __init__(self,parent):
         super().__init__(parent)
-        self.image_editor = image_editor
+        self.image_editor =ImageEditorManager.get_instance().current_editor
         self.configure(text="Filtros")
      
     def setup_filters(self):

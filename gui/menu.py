@@ -23,7 +23,7 @@ class Menu(tk.Frame):
         toolsMenu.pack(side='left', padx=1)
         menu2 = tk.Menu(toolsMenu, tearoff=0)
         toolsMenu['menu'] = menu2
-        menu2.add_command(label='Filtros', command=lambda:self.right_panel.add_panel(Filters,image_editor =  self.image_editor))
+        menu2.add_command(label='Filtros', command=lambda:self.right_panel.add_panel(Filters))
         menu2.add_command(label='Deteccion de Objetos', command=lambda:print("deteccion"))
         menu2.add_command(label='Morfologia', command=self.quit)
 
