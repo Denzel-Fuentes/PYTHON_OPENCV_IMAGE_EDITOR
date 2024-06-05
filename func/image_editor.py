@@ -4,27 +4,34 @@ from PIL import Image, ImageTk
 from func.imageMemento import ImageCaretaker, ImageMemento
 
 class ImageEditor:
-    def __init__(self, canvas):
+    def __init__(self,file_path ,canvas):
         self.canvas = canvas
+        self.file_path = file_path
         self.image = None 
         self.image_tk = None 
         self.caretaker = ImageCaretaker()
-        self.filter_strategy = None 
+        self.filter_strategy = None
+        self.open_image() 
 
     def open_image(self):
-        file_path = filedialog.askopenfilename()
-        if file_path:
-            self.image = cv2.imread(file_path)
+        self.image = cv2.imread(self.file_path)
+        if self.image is not None:
             original_height, original_width = self.image.shape[:2]
-            # factor de escala
-            scale_width = self.canvas.winfo_width() / (original_width+100)
-            scale_height = self.canvas.winfo_height() / (original_height+100)
-            scale = min(scale_width, scale_height)  
-            new_width = int(original_width * scale) 
-            new_height = int(original_height * scale)
-           
+            
+            canvas_width = self.canvas.winfo_width()
+            canvas_height = self.canvas.winfo_height() 
+
+            scale_width = canvas_width / (original_width+100)  # Evitar división por cero
+            scale_height = canvas_height / (original_height+100)  # Evitar división por cero
+            scale = min(scale_width, scale_height)
+
+            new_width = max(1, int(original_width * scale))  #  Asegurar mínimo tamaño de 1
+            new_height = max(1, int(original_height * scale))  # Asegurar mínimo tamaño de 1
+
             self.image = cv2.resize(self.image, (new_width, new_height))
             self.update_canvas()
+        else:
+            print("Error: No se pudo cargar la imagen.")
 
     def save_image(self):
         if self.image is not None:

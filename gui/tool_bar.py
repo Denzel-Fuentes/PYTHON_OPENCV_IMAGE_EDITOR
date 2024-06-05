@@ -2,7 +2,7 @@ import ttkbootstrap as tk
 from ttkbootstrap.constants import *
 from filters.blur import BlurFilter
 from filters.grayScale import GrayscaleFilter
-from func.image_editor import ImageEditor
+
 
 class ToolbarWidget(tk.Frame):
     def __init__(self, parent, image_editor):
