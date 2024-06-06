@@ -60,12 +60,14 @@ class ImageEditor:
         self.caretaker.add_memento(memento)
 
     def undo(self):
+        print('hello from undo')
         memento = self.caretaker.get_undo()
         if memento:
             self.image = memento.get_image()
             self.update_canvas()
 
     def redo(self):
+        print('hello from redo')
         memento = self.caretaker.get_redo()
         if memento:
             self.image = memento.get_image()

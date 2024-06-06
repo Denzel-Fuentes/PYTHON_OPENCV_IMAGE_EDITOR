@@ -11,8 +11,8 @@ class ImageEditorManager:
     def get_instance(cls):
         if cls._instance is None:
             cls._instance = cls.__new__(cls)
-            cls._instance.editors = {}  # Inicialización aquí
-            cls._instance.current_id = 0  # Inicialización aquí
+            cls._instance.editors = {}  
+            cls._instance.current_id = 0  
             cls._instance.current_editor = None
         return cls._instance
 
@@ -43,6 +43,4 @@ class ImageEditorManager:
 
     def set_current_editor(self, editor_id):
         self.current_editor = self.get_editor(editor_id)
-        print(f"Current editor set to ID: {editor_id}")
-
     

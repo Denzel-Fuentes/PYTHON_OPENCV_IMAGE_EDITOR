@@ -1,7 +1,6 @@
 import ttkbootstrap as tk
 from ttkbootstrap.constants import *
-from filters.blur import BlurFilter
-from filters.grayScale import GrayscaleFilter
+
 from gui.canvas_panel import CanvasPanel
 from gui.menu import Menu
 from gui.right_panel import RightPanel

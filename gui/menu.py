@@ -8,7 +8,7 @@ class Menu(tk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
         self.right_panel = RightPanel.get_instance()
-        self.image_editor = ImageEditorManager.get_instance()
+        self.image_editorManager = ImageEditorManager.get_instance()
         self.setup_menu()
 
     def setup_menu(self):
@@ -16,7 +16,7 @@ class Menu(tk.Frame):
         fileMenu.pack(side='left', padx=1)
         menu = tk.Menu(fileMenu, tearoff=0)
         fileMenu['menu'] = menu
-        menu.add_command(label='Abrir', command=self.image_editor.open_image)
+        menu.add_command(label='Abrir', command=self.image_editorManager.open_image)
         menu.add_command(label='Salir', command=self.quit)
         
         toolsMenu = tk.Menubutton(self, text='Herramientas', style='Primary.Outline.Toolbutton')
@@ -27,8 +27,8 @@ class Menu(tk.Frame):
         menu2.add_command(label='Deteccion de Objetos', command=lambda:print("deteccion"))
         menu2.add_command(label='Morfologia', command=self.quit)
 
-"""         btn_before = tk.Button(self, text="<=", command=self.image_editor.undo)
+        btn_before = tk.Button(self, text="<=", command=lambda:self.image_editorManager.current_editor.undo())
         btn_before.pack(side=tk.LEFT, padx=2, pady=2)
 
-        btn_after = tk.Button(self, text="=>", command=self.image_editor.redo)
-        btn_after.pack(side=tk.LEFT, padx=2, pady=2) """
+        btn_after = tk.Button(self, text="=>", command=lambda: self.image_editorManager.current_editor.redo())
+        btn_after.pack(side=tk.LEFT, padx=2, pady=2)

@@ -11,7 +11,6 @@ class ImageMemento:
     def get_description(self):
         return self._description
     
-#Manages memento history and provides methods to undo and redo changes.
 class ImageCaretaker:
     def __init__(self):
         self.mementos = []

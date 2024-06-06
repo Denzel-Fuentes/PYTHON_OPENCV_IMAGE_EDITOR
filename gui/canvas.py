@@ -28,7 +28,6 @@ class ImageCanvas(LabelFrame):
         self.canvas.bind('<Button-1>', callback)
 
     def on_canvas_click(self, event):
-        print(f"Clicked at x={event.x}, y={event.y}")
         from gui.image_manager import ImageEditorManager  
         ImageEditorManager.get_instance().set_current_editor(self.id)
 
