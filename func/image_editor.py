@@ -72,3 +72,9 @@ class ImageEditor:
         if memento:
             self.image = memento.get_image()
             self.update_canvas()
+    
+    def add_border(self):
+        self.canvas.config(highlightbackground="#7DC3E0", highlightthickness=2)
+    
+    def remove_border(self):
+        self.canvas.config(highlightthickness=0)
