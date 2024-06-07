@@ -6,7 +6,7 @@ from gui.image_manager import ImageEditorManager
 class Filters(LabelFrame):
     def __init__(self,parent):
         super().__init__(parent)
-        self.image_editor =ImageEditorManager.get_instance().current_editor
+        self.image_editor =ImageEditorManager.get_instance()
         self.configure(text="Filtros")
      
     def setup_filters(self):
@@ -18,8 +18,6 @@ class Filters(LabelFrame):
        self.pack_button( text="Canny",command=lambda :print("seleccionar"))
        self.set_scale()
 
-       
-
     def update_value_label(self, event):
         value = round(self.scale.get())
         self.label_value.config(text=f"{int(value)}")
@@ -29,8 +27,8 @@ class Filters(LabelFrame):
         button.pack(fill='x', anchor='w', pady=4)
     
     def set_filter(self, filter_strategy):
-        self.image_editor.set_filter(filter_strategy)
-        self.image_editor.apply_filter()
+        self.image_editor.current_editor.set_filter(filter_strategy)
+        self.image_editor.current_editor.apply_filter()
     
     def set_scale(self):
        self.frame = Frame(self)

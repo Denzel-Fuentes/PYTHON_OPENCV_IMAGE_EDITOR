@@ -42,5 +42,9 @@ class ImageEditorManager:
             del self.editors[editor_id]
 
     def set_current_editor(self, editor_id):
+        for editor in self.editors.values():
+            editor.remove_border()
         self.current_editor = self.get_editor(editor_id)
+        if self.current_editor is not None:
+            self.current_editor.add_border()
     
