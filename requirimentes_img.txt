@@ -1,39 +1,46 @@
-[17/5 15:49] Alvaro Inturias Villarroel
-Tentativa de temas del proyecto
-leer imagen
-	img.shape
-	plt.imshow()
-segmentacion aplicando a las capas por color
+segmentación aplicando a las capas por color
+	Debe usar botones para elegir que color va segmentar
 convertir a blanco y negro
+	Se debe poder modificar cuanto de R,G,B al momento de convertir
 modificar brillo
+	Se debe poder modificar el brillo 
 modificar contraste
-imagen negativa
+	Se debe poder modificar el contraste
+imagen negativa 
 escalando imagenes
+	Se debe poder modificar al vivo el tamaño
 muestro espacial
 histograma
-quantizacion
+ecualización de histograma
+	Se debe mostrar la imagen modificada
+cuantización
+	Se debe poder modificar el numero de pixeles a reducir
 reshape()
-segmentacoin con K-clusters
-ecualizacion de hisogramas
-transfomracion geometrica
+segmentación con K-clusters
+	Se debe poder elegir cuantos clusters se va usar ( máximo 5)
+transformación geométrica
+	Debe haber botones que permitan ya sea girar la imagen 
 mascaras
 kernels
-filtros
-	guass
-	borroso
-	deteccion de bordes
-	lapalce
-	x-y sobel
-	canny
-deteccion de bordes
-deteccion de objetos
-	area
-	perimetro
-	centro
-convolucion
+detección de bordes
+	Se debe poder elegir el área mínima para enmarcar
+	Que te enumere los objetos
+detección de objetos
+	Se debe poder elegir el área mínima para enmarcar
+		área
+		perímetro
+		centro
+convolución
 fourier
-morfologia
-	dilatacion
-	erosion
-suma de imagenes
-restas de imagenes
+morfología
+	dilatación
+		Se debe elegir al vivo el numero de iteraciones.
+	erosión
+		Se debe elegir al vivo el numero de iteraciones.
+suma de imágenes
+	Se debe poder elegir las dos imágenes
+restas de imágenes
+	Se debe poder elegir las dos imágenes
+Se puede fusionar la suma y resta en una sola función con dos botones
+ 
+Se debe poder aplicar dichos filtros usando la cámara al vivo.

@@ -2,6 +2,7 @@ import ttkbootstrap as tk
 
 from gui.filters import Filters
 from gui.image_manager import ImageEditorManager
+from gui.morfology import Morfologia
 from gui.right_panel import RightPanel
 
 class Menu(tk.Frame):
@@ -24,6 +25,7 @@ class Menu(tk.Frame):
         menu2 = tk.Menu(toolsMenu, tearoff=0)
         toolsMenu['menu'] = menu2
         menu2.add_command(label='Filtros', command=lambda:self.right_panel.add_panel(Filters))
+        menu2.add_command(label='Morfologia', command=lambda:self.right_panel.add_panel(Morfologia))
         menu2.add_command(label='Deteccion de Objetos', command=lambda:print("deteccion"))
         menu2.add_command(label='Morfologia', command=self.quit)
 
