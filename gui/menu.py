@@ -1,9 +1,12 @@
 import ttkbootstrap as tk
 
 from filters.geometric_transformation.rotation import Rotation
+from gui.convolution import ConvolutionPanel
 from gui.filters import Filters
 from func.image_manager import ImageEditorManager
+from gui.fourier_panel import FourierPanel
 from gui.kclusters_panel import KClustersPanel
+from gui.mask_panel import MaskPanel
 from gui.morfology import Morfologia
 from gui.right_panel import RightPanel
 
@@ -29,7 +32,11 @@ class Menu(tk.Frame):
         menu2.add_command(label='Filtros', command=lambda:self.right_panel.add_panel(Filters))
         menu2.add_command(label='Morfologia', command=lambda:self.right_panel.add_panel(Morfologia))
         menu2.add_command(label='K-Clusters ', command=lambda:self.right_panel.add_panel(KClustersPanel))
+        menu2.add_command(label='Fourier', command=lambda:self.right_panel.add_panel(FourierPanel))
+        menu2.add_command(label='Mascaras', command=lambda:self.right_panel.add_panel(MaskPanel))
         menu2.add_command(label='Deteccion de Objetos', command=lambda:print("deteccion"))
+        menu2.add_command(label='Convolution', command=lambda:self.right_panel.add_panel(ConvolutionPanel))
+        
  
 
         btn_before = tk.Button(self, text="<=", command=lambda:self.image_editorManager.current_editor.undo())

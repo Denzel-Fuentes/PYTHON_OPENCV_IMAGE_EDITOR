@@ -2,24 +2,26 @@ import cv2
 from tkinter import filedialog, Canvas
 from PIL import Image, ImageTk
 from func.imageMemento import ImageCaretaker, ImageMemento
-
+import numpy as np
 class ImageEditor:
-    def __init__(self,file_path ,canvas):
-        self.canvas = canvas
+    def __init__(self,file_path,panel,image = None):
+        self.canvas = panel.canvas
+        self.panel = panel
         self.file_path = file_path
-        self.image = None 
+        self.image = image 
         self.image_tk = None 
         self.caretaker = ImageCaretaker()
         self.filter_strategy = None
         self.intensity = 0
         self.open_image()
         self.image_original = self.image 
+        self.selected_area = None
 
     def open_image(self):
-        self.image = cv2.imread(self.file_path)
-        if self.image is not None:
+        if self.file_path != None:
+            self.image = cv2.imread(self.file_path)
             original_height, original_width = self.image.shape[:2]
-            
+            print(self.image.shape)
             canvas_width = self.canvas.winfo_width()
             canvas_height = self.canvas.winfo_height() 
 
@@ -33,7 +35,23 @@ class ImageEditor:
             self.image = cv2.resize(self.image, (new_width, new_height))
             self.update_canvas()
         else:
-            print("Error: No se pudo cargar la imagen.")
+            if self.image is not None and np.any(self.image):
+                print(self.image)
+                original_height, original_width = self.image.shape[:2]
+                print(self.image.shape)
+                canvas_width = self.canvas.winfo_width()
+                canvas_height = self.canvas.winfo_height() 
+                scale_width = canvas_width / (original_width+100) 
+                scale_height = canvas_height / (original_height+100) 
+                scale = min(scale_width, scale_height)
+                new_width = max(1, int(original_width * scale)) 
+                new_height = max(1, int(original_height * scale)) 
+
+                self.image = cv2.resize(self.image, (new_width, new_height))
+                self.update_canvas()
+            else:
+                print("Error: No se pudo cargar la imagen.")
+
 
     def save_image(self):
         if self.image is not None:
@@ -88,3 +106,19 @@ class ImageEditor:
     
     def remove_border(self):
         self.canvas.config(highlightthickness=0)
+    
+    def paint_selected_area(self, rect):
+        if self.image is not None and rect is not None:
+            x1, y1, x2, y2 = self.canvas.coords(rect)
+            canvas_width = self.canvas.winfo_width()
+            canvas_height = self.canvas.winfo_height()
+            image_width, image_height = self.image.shape[1], self.image.shape[0]
+            x1_img = int(x1 * (image_width / canvas_width))
+            y1_img = int(y1 * (image_height / canvas_height))
+            x2_img = int(x2 * (image_width / canvas_width))
+            y2_img = int(y2 * (image_height / canvas_height))
+            self.image[y1_img:y1_img+2, x1_img:x2_img] = [0, 0, 255]  # Bordes superiores e inferiores
+            self.image[y2_img-2:y2_img, x1_img:x2_img] = [0, 0, 255]  # Bordes superiores e inferiores
+            self.image[y1_img:y2_img, x1_img:x1_img+2] = [0, 0, 255]  # Bordes izquierdos y derechos
+            self.image[y1_img:y2_img, x2_img-2:x2_img] = [0, 0, 255]  # Bordes izquierdos y derechos
+            self.update_canvas()

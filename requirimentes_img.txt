@@ -19,12 +19,12 @@ reshape()
 
 Denzel
 
-segmentación con K-clusters
+-segmentación con K-clusters
 	Se debe poder elegir cuantos clusters se va usar ( máximo 5)
-transformación geométrica
+-transformación geométrica
 	Debe haber botones que permitan ya sea girar la imagen 
-mascaras
-kernels
+-mascaras
+-kernels
 detección de bordes
 	Se debe poder elegir el área mínima para enmarcar
 	Que te enumere los objetos
@@ -33,17 +33,17 @@ detección de objetos
 		área
 		perímetro
 		centro
-convolución
-fourier
-morfología
+-convolución
+-fourier
+-morfología
 	dilatación
 		Se debe elegir al vivo el numero de iteraciones.
 	erosión
 		Se debe elegir al vivo el numero de iteraciones.
-suma de imágenes
+-suma de imágenes
 	Se debe poder elegir las dos imágenes
-restas de imágenes
+-restas de imágenes
 	Se debe poder elegir las dos imágenes
-Se puede fusionar la suma y resta en una sola función con dos botones
+-Se puede fusionar la suma y resta en una sola función con dos botones
  
 Se debe poder aplicar dichos filtros usando la cámara al vivo.
