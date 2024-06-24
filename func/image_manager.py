@@ -29,8 +29,7 @@ class ImageEditorManager:
         if file_path:
             editor = ImageEditor(file_path=file_path, canvas=image_canvas.canvas)
             self.editors[self.current_id] = editor
-            if self.current_id == 1:
-                self.set_current_editor(1)
+            self.set_current_editor(self.current_id)
             return editor
 
     def get_editor(self, editor_id):

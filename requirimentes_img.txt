@@ -16,6 +16,9 @@ ecualización de histograma
 cuantización
 	Se debe poder modificar el numero de pixeles a reducir
 reshape()
+
+Denzel
+
 segmentación con K-clusters
 	Se debe poder elegir cuantos clusters se va usar ( máximo 5)
 transformación geométrica

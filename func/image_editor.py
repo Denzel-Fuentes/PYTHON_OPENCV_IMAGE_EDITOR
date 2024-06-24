@@ -11,7 +11,9 @@ class ImageEditor:
         self.image_tk = None 
         self.caretaker = ImageCaretaker()
         self.filter_strategy = None
-        self.open_image() 
+        self.intensity = 0
+        self.open_image()
+        self.image_original = self.image 
 
     def open_image(self):
         self.image = cv2.imread(self.file_path)
@@ -39,20 +41,30 @@ class ImageEditor:
             if file_path:
                 cv2.imwrite(file_path, self.image)
     
-    def set_filter(self, filter_strategy):
+    def set_filter(self, filter_strategy,apply = False):
         self.filter_strategy = filter_strategy
+        if apply:
+            self.apply_filter()
     
-    def apply_filter(self):
-        if self.image is not None:
+    def apply_filter(self,intensity = 0):
+        if intensity > 0: 
+            if intensity < self.intensity:
+                self.image = self.filter_strategy.apply(self.image_original)
+                self.update_canvas()    
+            elif intensity > self.intensity:
+                self.image = self.filter_strategy.apply(image=self.image_original)
+                self.update_canvas()
+            self.intensity = intensity     
+        elif self.image is not None:
             self.add_memento(f"applied filter: {self.filter_strategy.__class__.__name__}")
             self.image = self.filter_strategy.apply(self.image)
             self.update_canvas()
 
     def update_canvas(self):
         if self.image is not None:
-            image_cv = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGBA)  # Convert the image to RGBA
-            self.image_pil = Image.fromarray(image_cv)  # Convert the image to PIL format
-            self.image_tk = ImageTk.PhotoImage(image=self.image_pil)  # Convert to PhotoImage
+            image_cv = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGBA) 
+            self.image_pil = Image.fromarray(image_cv) 
+            self.image_tk = ImageTk.PhotoImage(image=self.image_pil)  
             self.canvas.create_image(self.canvas.winfo_width() // 2, self.canvas.winfo_height() // 2, image=self.image_tk, anchor='center')
    
     def add_memento(self, description):
@@ -60,14 +72,12 @@ class ImageEditor:
         self.caretaker.add_memento(memento)
 
     def undo(self):
-        print('hello from undo')
         memento = self.caretaker.get_undo()
         if memento:
             self.image = memento.get_image()
             self.update_canvas()
 
     def redo(self):
-        print('hello from redo')
         memento = self.caretaker.get_redo()
         if memento:
             self.image = memento.get_image()

@@ -1,7 +1,9 @@
 import ttkbootstrap as tk
 
+from filters.geometric_transformation.rotation import Rotation
 from gui.filters import Filters
-from gui.image_manager import ImageEditorManager
+from func.image_manager import ImageEditorManager
+from gui.kclusters_panel import KClustersPanel
 from gui.morfology import Morfologia
 from gui.right_panel import RightPanel
 
@@ -26,11 +28,15 @@ class Menu(tk.Frame):
         toolsMenu['menu'] = menu2
         menu2.add_command(label='Filtros', command=lambda:self.right_panel.add_panel(Filters))
         menu2.add_command(label='Morfologia', command=lambda:self.right_panel.add_panel(Morfologia))
+        menu2.add_command(label='K-Clusters ', command=lambda:self.right_panel.add_panel(KClustersPanel))
         menu2.add_command(label='Deteccion de Objetos', command=lambda:print("deteccion"))
-        menu2.add_command(label='Morfologia', command=self.quit)
+ 
 
         btn_before = tk.Button(self, text="<=", command=lambda:self.image_editorManager.current_editor.undo())
         btn_before.pack(side=tk.LEFT, padx=2, pady=2)
 
         btn_after = tk.Button(self, text="=>", command=lambda: self.image_editorManager.current_editor.redo())
         btn_after.pack(side=tk.LEFT, padx=2, pady=2)
+
+        btn_rotate = tk.Button(self, text="🔄", command=lambda: self.image_editorManager.current_editor.set_filter(Rotation(90),apply = True))
+        btn_rotate.pack(side=tk.LEFT, padx=2, pady=2)

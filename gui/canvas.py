@@ -22,12 +22,14 @@ class ImageCanvas(LabelFrame):
         label.pack(side="left", padx=5, pady=1)
 
     def close_canvas(self):
+        from func.image_manager import ImageEditorManager  
+        ImageEditorManager.get_instance().close_editor(self.id)
         self.destroy()
 
     def bind_canvas_click(self, callback):
         self.canvas.bind('<Button-1>', callback)
 
     def on_canvas_click(self, event):
-        from gui.image_manager import ImageEditorManager  
+        from func.image_manager import ImageEditorManager  
         ImageEditorManager.get_instance().set_current_editor(self.id)
 
